@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal: NgbModal
+  ) { }
 
   ngOnInit() {
   }
 
+  public openModal(templateModal: any): void {
+    this.modal.open(templateModal).result.then(() => {
+      console.log('resolve');
+    }, () => {
+      console.log('reject');
+    });
+  }
 }
