@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-layout',
@@ -9,17 +10,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class LayoutComponent implements OnInit {
 
   constructor(
-    private modal: NgbModal
+    private modal: NgbModal,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
   }
 
   public openModal(templateModal: any): void {
-    this.modal.open(templateModal).result.then(() => {
-      console.log('resolve');
-    }, () => {
-      console.log('reject');
+    this.modal.open(templateModal).result.then((res) => {
+      this.toastr.success(res);
+    }, (rej) => {
+      this.toastr.error(rej);
     });
   }
 }
